@@ -3,6 +3,7 @@ from flask import request, Flask
 from wtforms import validators, StringField, DateField, ValidationError
 import datetime
 import json
+import os
 
 #VALIDATORS
 vacancies = ['IT','Bank', 'HR' ]
@@ -133,6 +134,20 @@ def confirm_password():
     # if request.method == "GET":
     #     return 'status - {} \n errors : {} '.format(0, erro), 200
 
+"""
+По адресу /serve/<path:filename> должен возвращать содержимое запрашиваемого файла из папки ./files. Файлы можно туда положить любые текстовые. А если такого нет - 404.
+"""
+@app.route('/serve/<path:filename>')
+def open_file(filename):
+    print('filename >>: ', filename)
+    fp = os.path.join('./files',filename)
+    if os.path.isfile(fp):
+        content = ''
+        with open(fp) as file:
+            content = file.read()
+        return content
+    else:
+        return 'There is no such file yet (', 404
 
 
 def main():
