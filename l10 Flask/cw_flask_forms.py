@@ -19,6 +19,9 @@ class ValidData():
     def __call__(self, form, field):
         d = field.data and field.data.month or None 
         print("d",d)
+        print("form: ",form.birth_date)
+        print("field: ",field)
+        
         if d: 
             if d != self.month_now:
                 raise ValidationError(self.message)
@@ -26,8 +29,21 @@ class ValidData():
 valid_data = ValidData()
 # formatter = lambda values: '::'.join(x for x in vacancies)
 class ValidPassword():
-    
+    def __init__(self, message=None):
+        if not message:
+            self.message = 'passwod and password confirmation don\'t match'
+        self.message = message
 
+    def __call__(self, form, field):
+        # print('field:', field.data)
+        # print('form :', form.password)
+        # print('True or False: ', form.password.data == form.password_confirm.data )
+        p = len(field.data) and field.data or None
+        print('p:', p == form.password.data )
+        if p and p != form.password.data:
+            raise ValidationError(self.message)
+        
+valid_password = ValidPassword
 
 #^VALIDATORS
 
@@ -53,18 +69,19 @@ class ContolForm(FlaskForm):
 
 class PasswordForm(FlaskForm):
     email = StringField(validators=[
-        validators.InputRequired()
-        validators.Email()
-        validators.Length(min='4', max='35')
+        validators.InputRequired(),
+        validators.Email(),
+        validators.Length(min=4, max=35)
     ])
     password = StringField(validators = [
-        validators.InputRequired()
-        validators.Length(min=8, max=50)
+        validators.InputRequired(),
+        validators.Length(min=6, max=50),
 
     ])
     password_confirm = StringField(validators=[
-        validators.InputRequired()
-        validators.Length(min=8, max=50)
+        validators.InputRequired(),
+        validators.Length(min=6, max=50),
+        valid_password(),
         
     ])
 
@@ -88,17 +105,33 @@ def home():
             return('invalid', 400)
     if request.method == "GET":
         return 'hello, world', 200
+
 @app.route('/locals')
 def locals():
     response = ['ru', 'en', 'it']
     return json.dumps(response)
+
 """
 По адресу /form/user должен принимать POST запрос с параментрами: email, пароль и подтверждение пароля. Необходимо валидировать email, что обязательно присутствует, валидировать пароли, что они минимум 6 символов в длину и совпадают. Возрващать пользователю json вида: 
  "status" - 0 или 1 (если ошибка валидации),
  "errors" - список ошибок, если они есть,
  или пустой список.
 """
-@app.route('/form/user', methods=["GET", "POST"]) 
+@app.route('/form/user', methods=["GET", "POST"])
+def confirm_password():
+    erro = []
+    if request.method == "POST":
+        try:
+            form = PasswordForm(request.form)
+            print(form.validate())
+        except ValidationError as err:
+            erro = err
+        if form.validate():
+            return('status - {} \n errors : {} '.format(0, erro), 200)
+        else:
+            return('status - {} \n errors : {} '.format(1, erro), 400)
+    # if request.method == "GET":
+    #     return 'status - {} \n errors : {} '.format(0, erro), 200
 
 
 
