@@ -1,0 +1,7 @@
+DEBUG = True
+SECRET_KEY = '1qsc3esz2wsx'
+
+SQLALCHEMY_DATABASE_URI = 'sqlite:///guestbook.db'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+ 
+WTF_CSRF_ENABLED = False
