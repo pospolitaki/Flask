@@ -1,0 +1,12 @@
+{% for article in articles %}
+<hr/>
+<header>Header: {{article.header}}< #{{article.id}} /header>
+<article>Content: {{article.content}}</article>
+
+{% if article.comments %}
+{% for comment in article.comments %}
+<small>| {{comment.comment}} |</small>
+{% endfor %}
+{% endif %}
+<hr/>
+{% endfor %}

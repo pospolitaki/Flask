@@ -1,6 +1,17 @@
 <h1>BOOKS:</h1>
+
+{% if books %}
 {% for book in books %}
 <p>Author: {{book.author}}</p>
 <p>Text:   {{book.text}}</p>
 <hr/>
-{%endfor%}
+{% endfor %}
+{% endif %}
+
+{% if with_price %}
+<table>
+    <tr>
+    {% for book, price in with_price.items %} 
+        <td>{{book}}</td> <td>{{price}}</td>
+    </tr>   
+</table>
