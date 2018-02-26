@@ -38,11 +38,12 @@ def create_comment():
     from models import Comment
     if request.method == 'POST':
         form = CommentForm(request.form)
-        new_comment = Comment(**form.data)
-        db.session.add(new_comment)
-        db.session.commit()
-        comments = Comment.query.all()
-        return render_template('comments.html', comments=comments)
+        if form.validate():
+            new_comment = Comment(**form.data)
+            db.session.add(new_comment)
+            db.session.commit()
+            comments = Comment.query.all()
+            return render_template('comments.html', comments=comments)
     comments = Comment.query.all()
     return render_template('comments.html', comments=comments)
 
