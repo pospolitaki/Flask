@@ -47,6 +47,9 @@ def create_comment():
     comments = Comment.query.all()
     return render_template('comments.html', comments=comments)
 
+@app.route('/')
+def start_form():
+    return render_template('start_page.html')
 
 def main():
     app.run()

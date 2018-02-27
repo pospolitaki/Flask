@@ -1,0 +1,23 @@
+
+
+<h3>Create your article here</h3>
+<form action="/create_article" method="POST">
+    <p>Header:</p>
+    <input type="text" name="header">
+    <p>Content:</p>
+    <textarea name="content" rows="10" cols="30" ></textarea>
+    <br>
+    <br>
+    <input type="submit" name="Create" >
+</form>
+
+<h3>Comment article</h3>
+<form action="/create_comment" method="POST">
+    <p>Article #</p>
+    <input type="text" name="article_id">
+    <p>Comment:</p>
+    <input type="text" name="comment" >
+    <br>
+    <br>
+    <input type="submit" name="Create" >
+</form>
