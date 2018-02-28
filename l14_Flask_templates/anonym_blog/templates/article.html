@@ -1,12 +1,21 @@
-{% for article in articles %}
-<hr/>
-<header>Header: {{article.header}}< #{{article.id}} /header>
-<article>Content: {{article.content}}</article>
+{% extends "start_page.html" %}
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            {% for article in articles %}
+            <hr/>
+            <header>Header: {{article.header}}< #{{article.id}} /header>
+            <article>Content: {{article.content}}</article>
 
-{% if article.comments %}
-{% for comment in article.comments %}
-<small>| {{comment.comment}} |</small>
-{% endfor %}
-{% endif %}
-<hr/>
-{% endfor %}
+            {% if article.comments %}
+            {% for comment in article.comments %}
+            <small>| {{comment.comment}} |</small>
+            {% endfor %}
+            {% endif %}
+            <hr/>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
