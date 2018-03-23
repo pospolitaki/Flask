@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script type="application/javascript" src="https://unpkg.com/jquery@3.3.1"></script>
+
+    
+</head>
+<body>
+    
+    <div class="container">
+        <form id='messageForm'>
+            <fieldset class="row">
+                <div class="offset-4 col-md-6">
+                    <div>
+                        <legend>Send your message to us</legend>
+                    </div>
+                </div>
+                
+                <div class="form-group has-success row">
+                    <label class="form-control-label col-md-4 col-form-label text-md-right" for="InputName">Name</label>
+                    <div class="col-md-6">
+                <input type="text" id='InputName' class="form-control" placeholder="Name" name="name">
+            </div>
+            <label class="form-control-label col-md-4 col-form-label text-md-right" for="InputMessage">Message</label>
+            <div class="col-md-6">
+                <input type="text" id='InputMessage' class="form-control" placeholder="your message" name="message">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-md-4 col-md-6">
+                <button type="submit" class="btn btn-primary" id="sendButton">Send</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% if messages %}
+{% for message in messages %}
+<p>{{message}}</p>
+<hr/>
+{% endfor %}
+{% endif %}
+        </div><!--container-->
+
+        
+
+<script type="application/javascript">
+    'use strict';
+
+    (function (window, document, $) {
+        function sendRequest() {
+            var request = $.ajax({
+                url: 'http://127.0.0.1:5000/comment/',
+                crossDomain: true,
+                dataType: 'json',
+                type: 'POST',
+                data: $("#messageForm").serialize(),
+            });
+
+            request.done(function (data, textStatus, jqXHR) {
+                console.log(data, textStatus, jqXHR);
+                alert('Success');
+            });
+
+            request.fail(function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR, textStatus, errorThrown);
+                console.log('DATA=> ' + request.data)
+                alert(' Error ');
+            });
+        }
+
+        $(document).ready(function() {
+            $('#sendButton').click(function() {
+                sendRequest();
+            });
+        });
+    })(window, document, jQuery);
+</script>
+        
+        
+        <!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

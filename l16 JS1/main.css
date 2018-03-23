@@ -1,0 +1,35 @@
+.test {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-flow: column wrap; /* flex-direction + flex-wrap */
+    align-content: center;/*This can be confusing, but align-content determines the spacing between lines, while align-items determines how the items as a whole are aligned within the container. When there is only one line, align-content has no effect.*/
+}
+
+.central {
+    order: -1;
+}
+
+
+.pos {
+    background-color: bisque;
+    float: left;
+    width: 200px;
+}
+.hallo {
+    background-color: aqua;
+    float: left;
+    width:200px;
+
+}
+.common {
+    position: relative;
+    background-color: gray;
+    clear: both;
+    
+    
+}
+
+
