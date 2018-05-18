@@ -1,0 +1,33 @@
+{% extends 'pizza_app/_base.html' %}
+
+{% block content %}
+
+
+{% if user.is_anonymous %}
+<div>
+  <span><a href="{% url 'auth_app:register' %}" method='GET' class="btn btn-success" role="button">Click to register</a></span>
+
+  <span><a href="{% url 'auth_app:login' %}" method='GET' class="btn btn-info" role="button">Registred? Click to login</a></span>
+</div>
+
+</div>
+{% else %}
+<div>
+  <span><a href="{% url 'auth_app:logout' %}" method='GET' class="btn btn-warning" role="button">logout</a></span>
+</div>
+{% endif %}
+<hr>
+<form action="{% url 'pizza:create' %}" method="POST">
+    {% csrf_token %}
+
+    <h2>Address</h2>
+    {{ delivery_form.as_p }}
+
+    <hr />
+
+    <h2>Pizza</h2>
+    {{ pizza_form.as_p }}
+
+    <input type="submit" value="Submit" />
+</form>
+{% endblock %}

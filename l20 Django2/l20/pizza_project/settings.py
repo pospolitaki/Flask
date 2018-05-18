@@ -41,9 +41,6 @@ INSTALLED_APPS = [
     # debug:
     'debug_toolbar',
 
-    #cart
-    'cart',
-
 
 
     # my apps:
@@ -57,6 +54,7 @@ INTERNAL_IPS = [
 MIDDLEWARE = [
     # debug:
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'qinspect.middleware.QueryInspectMiddleware',
 
     # basic:
     'django.middleware.security.SecurityMiddleware',
@@ -123,7 +121,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+#LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -132,6 +131,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'translations', 'locale'),
+)
 
 
 # Static files (CSS, JavaScript, Images)
@@ -164,18 +167,59 @@ REDIS_BACKEND_URL = 'redis://{host}:{port}/{db}'.format(
 #     db=REDIS_BACKEND['DB'],
 # )
 
-CELERY_RESULT_BACKEND = 'djcelery.backends.database.DatabaseBackend'
 
-
-CELERY_TASK_RESULT_EXPIRES = 18000  # 5 hours
-
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
 
 BROKER_URL = REDIS_BACKEND_URL
 
 # Periodic tasks:
 CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 
+
+# LOGGING = {
+#     'version': 1,
+#     'filters': {
+#         'require_debug_true': {
+#             '()': 'django.utils.log.RequireDebugTrue',
+#         }
+#     },
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'filters': ['require_debug_true'],
+#             'class': 'logging.StreamHandler',
+#         }
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'level': 'DEBUG',
+#             'handlers': ['console'],
+#         }
+#     }
+# }
+
+# https://github.com/dobarkod/django-queryinspect
+QUERY_INSPECT_ENABLED = True
+#
+LOGGING = {
+    'version': 1,
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+        }
+    },
+    'loggers': {
+        'qinspect': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    }
+}
 

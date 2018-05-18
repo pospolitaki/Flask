@@ -4,6 +4,42 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+       
+        /*{
+            "name": "Django",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "pythonPath": "home/kirill/.venvs/django2/bin/python",
+            "program": "${workspaceRoot}/l19 Django2/manage.py",
+            "args": [
+                "runserver",
+                "--no-color",
+                "--noreload"
+            ],
+            "debugOptions": [
+                "WaitOnAbnormalExit",
+                "WaitOnNormalExit",
+                "RedirectOutput",
+                "DjangoDebugging"
+            ]
+        },*/
+
+        /*{
+            "name": "Django",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/l19 Django2/manage.py",
+            "args": [
+                "runserver",
+                "--noreload",
+                "--nothreading"
+            ],
+            "debugOptions": [
+                "RedirectOutput",
+                "Django"
+            ]
+        },*/
         {
             "name": "Python: Current File",
             "type": "python",
@@ -57,13 +93,13 @@
             "internalConsoleOptions": "neverOpen"
         },
         {
-            "name": "Python: Django",
+            "name": "Python: DjangoDebugging",
             "type": "python",
             "request": "launch",
             "stopOnEntry": true,
-            "pythonPath": "${config:python.pythonPath}",
-            "program": "${workspaceFolder}/manage.py",
-            "cwd": "${workspaceFolder}",
+            "pythonPath": "home/kirill/.venvs/django2/bin/python",
+            "program": "${workspaceFolder}/l19 Django2/manage.py",
+            "cwd": "${workspaceFolder}/l19 Django2",
             "args": [
                 "runserver",
                 "--noreload",
@@ -73,7 +109,7 @@
             "envFile": "${workspaceFolder}/.env",
             "debugOptions": [
                 "RedirectOutput",
-                "DjangoDebugging"
+                //"DjangoDebugging",
             ]
         },
         {
